@@ -1,82 +1,45 @@
-# Lightweight React Template for KAVIA
+# Ocean Chat (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Modern, minimal chatbot frontend (Create React App) with an **Ocean Professional** theme.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Header / transcript / composer layout
+- User / assistant / system message variants
+- Typing indicator, error UI, Stop + Retry controls
+- Optional persistence via `localStorage`
+- **Mock-first**: runs without any backend by default
 
-## Getting Started
+## Environment variables (CRA)
 
-In the project directory, you can run:
+These are read from your environment at build/start time:
 
-### `npm start`
+- `REACT_APP_API_BASE`  
+  When set, the app will attempt to POST to `POST {REACT_APP_API_BASE}/chat` with `{ message: string }`.
+  If not set, the app runs in **mock mode** (local echo-style replies).
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- `REACT_APP_WS_URL`  
+  Reserved for future real-time updates; the code includes a safe WebSocket client stub.
 
-### `npm test`
+- `REACT_APP_NODE_ENV`  
+  Optional override; otherwise CRA’s `NODE_ENV` is used.
 
-Launches the test runner in interactive watch mode.
+### Example
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```bash
+# Point to a backend (if/when available)
+export REACT_APP_API_BASE="https://your-backend.example.com"
+export REACT_APP_WS_URL="wss://your-backend.example.com/ws"
+npm start
 ```
 
-### Components
+## Development
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+```bash
+npm start
+```
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+## Notes
 
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project intentionally does **not** require any backend services to run.
+If your backend uses different endpoints/payloads, update `src/hooks/useChatController.js`.
